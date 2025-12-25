@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Senja - Aroma Ketenangan</title>
+    <!-- Mengambil font serif untuk kesan elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & GLOBAL STYLES --- */
+        :root {
+            --primary: #8b5e3c;       /* Cokelat Kopi */
+            --primary-dark: #5d3a22;  /* Espresso */
+            --secondary: #d4a373;     /* Latte */
+            --dark: #2c1810;          /* Dark Roast */
+            --light: #faedcd;         /* Cream */
+            --white: #ffffff;
+            --gray: #6f5e55;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fdfbf7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            border-radius: 4px; /* Sudut lebih tajam untuk kesan klasik */
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 6px -1px rgba(139, 94, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Garis dekoratif di bawah judul */
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+            margin: 15px auto 0;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* --- HEADER & NAVIGATION (CSS ONLY MENU) --- */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 4px 20px rgba(44, 24, 16, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-weight: 400;
+            color: var(--dark);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Menu Button Hidden by default */
+        .menu-btn { display: none; }
+        
+        .menu-icon {
+            cursor: pointer;
+            display: none;
+            padding: 28px 20px;
+            position: relative;
+            user-select: none;
+        }
+
+        .navicon {
+            background: var(--dark);
+            display: block;
+            height: 2px;
+            position: relative;
+            transition: background .2s ease-out;
+            width: 24px;
+        }
+
+        .navicon:before, .navicon:after {
+            background: var(--dark);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+
+        .navicon:before { top: 7px; }
+        .navicon:after { top: -7px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.7)), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect simple */
+            height: 90vh; /* Hampir full screen */
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        /* --- FEATURES / VALUES --- */
+        .features {
+            background-color: #fdfbf7;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+            border: none;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dekorasi background card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid rgba(139, 94, 60, 0.1);
+            margin: 10px;
+            z-index: -1;
+            transition: 0.3s;
+        }
+
+        .card:hover::before {
+            border-color: var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(44, 24, 16, 0.1);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 25px;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        /* --- MENU HIGHLIGHT (PRICING REPURPOSED) --- */
+        .menu-section {
+            background-color: var(--light);
+            position: relative;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .menu-item {
+            background: var(--white);
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--secondary);
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            background-color: #fffbf2;
+            padding-left: 35px; /* Sedikit geser saat hover */
+        }
+
+        .menu-info h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .menu-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .menu-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        /* --- GALLERY GRID --- */
+        .gallery {
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .gallery-item {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(44, 24, 16, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* --- CTA --- */
+        .cta {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .cta p {
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .btn-light {
+            background-color: var(--light);
+            color: var(--primary-dark);
+        }
+        
+        .btn-light:hover {
+            background-color: var(--white);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a0f0a; /* Very dark brown */
+            color: #d4a373;
+            padding: 70px 0 30px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            margin-bottom: 30px;
+        }
+        
+        .footer-brand h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .footer-info p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #9ca3af;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 968px) {
+            .hero-content h1 { font-size: 3.5rem; }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .menu-grid { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-icon { display: block; }
+            
+            .nav-links {
+                display: block;
+                max-height: 0;
+                overflow: hidden;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                transition: max-height 0.4s ease-out;
+                padding: 0;
+            }
+
+            .nav-links li { border-bottom: 1px solid #eee; }
+            .nav-links a { display: block; padding: 20px; text-align: center; }
+
+            .menu-btn:checked ~ .nav-links { max-height: 400px; }
+            
+            .menu-btn:checked ~ .menu-icon .navicon { background: transparent; }
+            .menu-btn:checked ~ .menu-icon .navicon:before { transform: rotate(-45deg); top: 0; }
+            .menu-btn:checked ~ .menu-icon .navicon:after { transform: rotate(45deg); top: 0; }
+
+            .hero-content h1 { font-size: 2.8rem; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <!-- Ikon Kopi Sederhana SVG -->
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 10px;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                Kopi Senja
+            </a>
+
+            <input class="menu-btn" type="checkbox" id="menu-btn" />
+            <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#tentang">Cerita Kami</a></li>
+                <li><a href="#menu">Menu Favorit</a></li>
+                <li><a href="#lokasi">Lokasi</a></li>
+                <li><a href="#" style="color: var(--primary); font-weight: 700;">Reservasi</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Rasakan Kehangatan dalam Setiap Tegukan</h1>
+            <p>Biji kopi pilihan dari petani lokal, diseduh dengan hati untuk menemani senja Anda yang berharga.</p>
+            <a href="#menu" class="btn btn-primary">Lihat Menu</a>
+            <a href="#tentang" class="btn btn-outline" style="color: white; border-color: white; margin-left: 10px;">Tentang Kami</a>
+        </div>
+    </section>
+
+    <!-- Features / Values -->
+    <section id="tentang" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Filosofi Kami</h2>
+                <p>Lebih dari sekadar kopi, ini tentang pengalaman.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon-box">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                    </div>
+                    <h3>100% Arabika Lokal</h3>
+                    <p>Kami bekerja sama langsung dengan petani di Gayo dan Toraja untuk memastikan kualitas terbaik dan perdagangan yang adil.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                    <h3>Dibuat dengan Hati</h3>
+                    <p>Barista kami bukan hanya pembuat kopi, tapi seniman yang menuangkan passion ke dalam setiap cangkir yang Anda pesan.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </div>
+                    <h3>Suasana Tenang</h3>
+                    <p>Desain interior minimalis dengan nuansa bumi, tempat sempurna untuk bekerja, membaca, atau sekadar melamun.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section (Repurposed Pricing) -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Menu Pilihan</h2>
+                <p>Favorit para penikmat senja.</p>
+            </div>
+            
+            <div class="menu-grid">
+                <!-- Kolom Kiri -->
+                <div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>Kopi Senja Signature</h3>
+                            <p>Espresso, Gula Aren, Creamer Nabati</p>
+                        </div>
+                        <div class="menu-price">25k</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>Cappuccino Italiano</h3>
+                            <p>Double Shot Espresso, Steamed Milk, Foam Tebal</p>
+                        </div>
+                        <div class="menu-price">30k</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>V60 Manual Brew</h3>
+                            <p>Biji pilihan minggu ini (Tanya Barista)</p>
+                        </div>
+                        <div class="menu-price">35k</div>
+                    </div>
+                </div>
+                
+                <!-- Kolom Kanan -->
+                <div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>Caramel Macchiato</h3>
+                            <p>Vanilla Syrup, Espresso, Caramel Sauce</p>
+                        </div>
+                        <div class="menu-price">32k</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>Croissant Almond</h3>
+                            <p>Pastry renyah dengan isian almond pasta</p>
+                        </div>
+                        <div class="menu-price">28k</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-info">
+                            <h3>Classic Cheesecake</h3>
+                            <p>New York Style dengan topping buah beri</p>
+                        </div>
+                        <div class="menu-price">35k</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn btn-primary">Lihat Menu Lengkap</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Gallery -->
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kopi 1">
+            <div class="overlay">Aroma</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kopi 2">
+            <div class="overlay">Rasa</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1442512595331-e89e7385a861?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kopi 3">
+            <div class="overlay">Cerita</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Kopi 4">
+            <div class="overlay">Senja</div>
+        </div>
+    </div>
+
+    <!-- CTA / Location -->
+    <section id="lokasi" class="cta">
+        <div class="container">
+            <h2>Mari Duduk Bersama</h2>
+            <p>Jl. Melati No. 45, Bandung (Seberang Taman Kota)<br>Buka Setiap Hari: 08.00 - 22.00 WIB</p>
+            <a href="#" class="btn btn-light">Petunjuk Arah (Google Maps)</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-brand">
+                <h2>Kopi Senja</h2>
+                <p>Tempat dimana waktu berjalan sedikit lebih lambat.</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            </div>
+
+            <div class="footer-info">
+                <p>&copy; 2024 Kopi Senja. Dibuat dengan cinta dan kafein.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
